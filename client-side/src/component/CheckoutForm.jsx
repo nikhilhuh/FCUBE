@@ -58,7 +58,7 @@ function CheckoutForm() {
 
                 <div>
                   <label
-                    htmlFor="address"
+                    htmlFor="order_address"
                     className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
                   >
                     {" "}
@@ -66,7 +66,7 @@ function CheckoutForm() {
                   </label>
                   <input
                     type="text"
-                    id="address"
+                    id="order_address"
                     className="outline-none block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-primary-500 dark:focus:ring-primary-500"
                     placeholder="house no , street name , area name"
                   />

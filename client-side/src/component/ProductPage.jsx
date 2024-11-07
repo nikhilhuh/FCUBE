@@ -1,6 +1,6 @@
 import React from "react";
 import { FaChevronLeft } from "react-icons/fa";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import HookahImg from "../assets/hookah1.jpg"
 
@@ -26,13 +26,16 @@ function ProductPage() {
               />
             </div>
 
-            <div className="px-2 mb-2 space-y-4">
-              <button className="w-full bg-gray-900 dark:bg-gray-600 text-white py-2 px-4 rounded-full font-bold hover:bg-gray-800 dark:hover:bg-gray-700">
+            <div className="px-2 mb-2">
+              <button className="w-full mb-4 bg-gray-900 dark:bg-gray-600 text-white py-2 px-4 rounded-full font-bold hover:bg-gray-800 dark:hover:bg-gray-700">
                 Add to Cart
               </button>
-              <button className="w-full bg-yellow-400 text-black font-bold py-2 px-4 rounded-full hover:scale-105">
-                 View Cart
-              </button>
+
+              <Link to="/cart">
+                <button className="w-full bg-yellow-400 text-black font-bold py-2 px-4 rounded-full hover:scale-105">
+                   View Cart
+                </button>
+              </Link>
             </div>
           </div>
           <div className="md:flex-1 px-4">
