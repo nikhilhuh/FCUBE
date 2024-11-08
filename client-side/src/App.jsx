@@ -12,7 +12,8 @@ import Cart from "./component/Cart.jsx";
 import CheckoutForm from "./component/CheckoutForm.jsx";
 import PageNotFound from "./component/PageNotFound.jsx";
 
-export const backend_url = "http://localhost:3000";
+// This will get the environment variable in React
+export const backend_url = process.env.REACT_APP_BACKEND_URL || "http://localhost:3000";
 
 const App = () => {
   // Create refs for Hero and Products sections
