@@ -15,7 +15,7 @@ function Cart() {
 
   const { state, dispatch } = useCart(); // Access cart state and dispatch function
 
-  const handleRemove = (product_name) => {
+  const handleRemove = (product_name , selectedFlavours , selectedFruit) => {
     Swal.fire({
       title: "Do you want to remove this product from your cart?",
       showCancelButton: true,
@@ -32,7 +32,7 @@ function Cart() {
       },
     }).then((result) => {
       if (result.isConfirmed) {
-        handleRemoveFromCart(product_name);
+        handleRemoveFromCart(product_name , selectedFlavours , selectedFruit);
         Swal.fire({
           title: "The product has been removed from your cart!",
           icon: "success",
@@ -48,29 +48,33 @@ function Cart() {
     });
   };
 
-  const handleRemoveFromCart = (product_name) => {
+  const handleRemoveFromCart = (product_name , selectedFlavours , selectedFruit) => {
     dispatch({
       type: "REMOVE_FROM_CART",
-      payload: { product_name },
+      payload: { product_name , selectedFlavours , selectedFruit },
     });
   };
 
-  const handleDecrement = (product_name, quantity) => {
+  const handleDecrement = (product_name,selectedFlavours,selectedFruit, quantity) => {
     if (quantity > 1) {
       dispatch({
         type: "UPDATE_QUANTITY",
         payload: {
           product_name: product_name,
+          selectedFlavours: selectedFlavours,
+          selectedFruit: selectedFruit,
           quantity: quantity - 1,
         },
       });
     }
   };
-  const handleIncrement = (product_name, quantity) => {
+  const handleIncrement = (product_name,selectedFlavours,selectedFruit, quantity) => {
     dispatch({
       type: "UPDATE_QUANTITY",
       payload: {
-        product_name: product_name,
+        product_name: product_name,  
+        selectedFlavours: selectedFlavours,
+        selectedFruit: selectedFruit,
         quantity: quantity + 1,
       },
     });
@@ -110,7 +114,7 @@ function Cart() {
                         <div className="flex items-center">
                           <button
                             onClick={() =>
-                              handleDecrement(item.product_name, item.quantity)
+                              handleDecrement(item.product_name,item.selectedFlavours,item.selectedFruit, item.quantity)
                             }
                             type="button"
                             id="decrement-button"
@@ -144,7 +148,7 @@ function Cart() {
                           />
                           <button
                             onClick={() =>
-                              handleIncrement(item.product_name, item.quantity)
+                              handleIncrement(item.product_name,item.selectedFlavours,item.selectedFruit, item.quantity)
                             }
                             type="button"
                             id="increment-button"
