@@ -2,6 +2,7 @@ import React from "react";
 import { useEffect } from "react";
 import { FaChevronLeft } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 function CheckoutForm() {
   let navigate = useNavigate();
@@ -9,12 +10,54 @@ function CheckoutForm() {
     // Scroll to top on component mount
     window.scrollTo(0, 0);
   }, []);
+  const handleOrderClicked = () => {
+    event.preventDefault(); // Prevent default form submission
+
+    const name = document.getElementById("your_name").value.trim();
+    const phone = document.getElementById("phone-input").value.trim();
+    const pinCode = document.getElementById("pin_code").value.trim();
+    const orderaddress = document.getElementById("order_address").value.trim();
+
+    // Check if all required fields are filled
+    if (!name || !phone || !pinCode || !orderaddress) {
+      Swal.fire({
+        title: "Plaese fill in all your required details",
+        icon: "warning",
+        customClass: {
+          popup: "max-w-[80vw] md:max-w-[50vw]",
+          title: "text-lg lg:text-xl", // Adjust the title font size on small and large screens
+          content: "text-sm sm:text-base", // Smaller font size on small screens
+          confirmButton:
+            "bg-blue-500 text-white hover:bg-blue-600 focus:ring-2 focus:ring-blue-400 focus:outline-none",
+        },
+      });
+    } else {
+      Swal.fire({
+        title: "Your order has been placed",
+        icon: "success",
+        customClass: {
+          popup: "max-w-[80vw] md:max-w-[50vw]",
+          title: "text-lg lg:text-xl", // Adjust the title font size on small and large screens
+          content: "text-sm sm:text-base", // Smaller font size on small screens
+          confirmButton:
+            "bg-blue-500 text-white hover:bg-blue-600 focus:ring-2 focus:ring-blue-400 focus:outline-none",
+        },
+      }).then(() => {
+        navigate(-1);
+      });
+      
+    }
+  };
+
   return (
     <section className="bg-white py-8 antialiased dark:bg-gray-900 md:py-16">
       <form action="#" className="mx-auto max-w-screen-xl px-4 2xl:px-0">
-      <div className="cursor-pointer mt-[2.5rem]" onClick={() => navigate(-1)}>
-        <FaChevronLeft className="text-white text-3xl mb-6" />
-      </div>
+        <div
+          className="cursor-pointer mt-[2.5rem]"
+          onClick={() => navigate(-1)}
+        >
+          <FaChevronLeft className="text-white text-3xl mb-6" />
+        </div>
         <div className="mt-6 sm:mt-8 lg:flex lg:items-start lg:gap-12 xl:gap-16">
           <div className="min-w-0 flex-1 space-y-8">
             <div className="space-y-4">
@@ -83,8 +126,8 @@ function CheckoutForm() {
                     </label>
                   </div>
                   <select
-                  value="Kanpur"
-                  onChange={(e) => setSelectedValue(e.target.value)}
+                    value="Kanpur"
+                    onChange={(e) => setSelectedValue(e.target.value)}
                     id="select-city-input-3"
                     className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-primary-500 dark:focus:ring-primary-500 outline-none"
                   >
@@ -250,10 +293,11 @@ function CheckoutForm() {
             </div>
 
             <button
+              onClick={handleOrderClicked}
               type="submit"
               className="flex w-full items-center justify-center rounded-lg px-5 py-2.5 text-sm font-bold text-shadow text-black outline-none bg-green-400 hover:bg-green-800"
             >
-              Proceed to Payment
+              Place your Order
             </button>
           </div>
         </div>

@@ -1,8 +1,13 @@
 import React from "react";
 import { FaChevronLeft } from "react-icons/fa";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useEffect } from "react";
-import HookahImg from "../assets/hookah1.jpg"
+import PageNotFound from "../component/PageNotFound";
+import { backend_url } from "../App";
+import Swal from "sweetalert2";
+import FruitPopup from "./FruitPopup";
+import ReactDOMServer from "react-dom/server";
+import FlavourPopup from "./FlavourPopup";
 
 function ProductPage() {
   let navigate = useNavigate();
@@ -10,6 +15,70 @@ function ProductPage() {
     // Scroll to top on component mount
     window.scrollTo(0, 0);
   }, []);
+
+  const location = useLocation();
+  const product = location.state?.product;
+
+  if (!product) {
+    return <PageNotFound />;
+  }
+
+  function showFruitPopup() {
+    Swal.fire({
+      title: "Select Fruit",
+      position: "bottom",
+      animation: false,
+      html: ReactDOMServer.renderToString(
+        <FruitPopup />
+      ),
+      showCancelButton: true,
+      confirmButtonText: "Next",
+      customClass: {
+        popup: "max-w-[90vw] md:max-w-[60vw] mb-[4rem]",
+        title: "text-xl",
+        confirmButton: "bg-green-400 text-black font-bold hover:bg-green-600 outline-none",
+        cancelButton: "bg-red-400 text-black hover:bg-red-500 outline-none",
+        actions: "flex-row-reverse",
+      },
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // If "Next" is clicked, show the second popup
+        showFlavourPopup();
+      }
+    });
+  }
+  function showFlavourPopup() {
+    Swal.fire({
+      title: "Select Flavours",
+      position: "bottom",
+      animation: false,
+      html: ReactDOMServer.renderToString(
+        <FlavourPopup />
+      ),
+      showCancelButton: true,
+      cancelButtonText: "Back",
+      confirmButtonText: "Add to Cart",
+      customClass: {
+        popup: "max-w-[90vw] md:max-w-[60vw] mb-[4rem]",
+        title: "text-xl",
+        confirmButton: "bg-green-400 text-black font-bold hover:bg-green-600 outline-none",
+        cancelButton: "bg-red-400 text-black hover:bg-red-500 outline-none",
+        actions: "flex-row-reverse",
+      },
+    }).then((secondResult) => {
+      // If "Back" is clicked, show the first popup again
+      if (secondResult.isDismissed) {
+        showFruitPopup();  // Cycle back to the first popup
+      }
+      else{
+        // add to cart over here 
+      }
+    });
+  }
+  
+  const handleCartClicked = () => {
+    showFruitPopup()
+  };
   return (
     <div className="bg-gray-800 py-10 min-h-screen">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 mt-[2.5rem]">
@@ -21,35 +90,43 @@ function ProductPage() {
             <div className="h-[250px] md:h-[460px] rounded-lg bg-gray-300 dark:bg-gray-700 mb-4">
               <img
                 className="w-full h-full rounded-lg object-fill"
-                src={HookahImg}
-                alt="Product Image"
+                src={`${backend_url}${product.product_image}`}
+                alt={product.product_name}
               />
             </div>
 
             <div className="px-2 mb-2">
-              <button className="w-full mb-4 bg-gray-900 dark:bg-gray-600 text-white py-2 px-4 rounded-full font-bold hover:bg-gray-800 dark:hover:bg-gray-700">
+              <button
+                onClick={handleCartClicked}
+                className="w-full mb-4 bg-gray-900 dark:bg-gray-600 text-white py-2 px-4 rounded-full font-bold hover:bg-gray-800 dark:hover:bg-gray-700"
+              >
                 Add to Cart
               </button>
 
               <Link to="/cart">
                 <button className="w-full bg-yellow-400 text-black font-bold py-2 px-4 rounded-full hover:scale-105">
-                   View Cart
+                  View Cart
                 </button>
               </Link>
             </div>
           </div>
           <div className="md:flex-1 px-4">
             <h2 className="text-3xl mt-2 font-bold text-gray-800 dark:text-white mb-2">
-              Product Name
+              {product.product_name}
             </h2>
             <p className="text-gray-600 dark:text-gray-300 text-sm mb-4">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sed
-              ante justo. Integer euismod libero id mauris malesuada tincidunt.
+              {product.product_info}
             </p>
             <div className="flex-wrap mb-4">
               <div className="mr-4 space-x-4">
                 <span className="font-bold text-xl text-gray-300">Price:</span>
-                <span className="text-xl text-gray-300">Rs. <span id="price">4,599.00</span></span>
+                <span className="text-xl text-gray-300">
+                  Rs.{" "}
+                  <span className="line-through mr-2 text-lg">
+                    {product.product_original_price}
+                  </span>
+                  <span id="price">{product.product_offer_price}</span> /hr
+                </span>
               </div>
               <div className="mr-4 space-x-4">
                 <span className="font-bold text-xl text-gray-300">
@@ -58,10 +135,10 @@ function ProductPage() {
                 <span className="text-xl text-gray-300">In Stock</span>
               </div>
             </div>
-            
+
             <div className="mb-4 flex justify-between flex-wrap">
               <span className="font-bold text-gray-700 dark:text-gray-300">
-                Choose Quantity:
+                Choose Hours :
               </span>
               <div className="flex items-center">
                 <button
@@ -137,13 +214,14 @@ function ProductPage() {
               </ul>
             </div>
             <div className="font-bold text-white mt-[1rem]">
-                NOTE: 
-                <ul className="">
-                  <li>You must be 18 years of age or order to purchase this
-                  product.</li>
-                  <li>Base Color or Stem Design may vary</li>
-                  </ul>
-              </div>
+              NOTE:
+              <ul className="">
+                <li>
+                  You must be 18 years of age or order to purchase this product.
+                </li>
+                <li>Base Color or Stem Design may vary</li>
+              </ul>
+            </div>
           </div>
         </div>
       </div>
