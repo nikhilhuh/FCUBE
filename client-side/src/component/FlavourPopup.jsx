@@ -10,7 +10,7 @@ function FlavourPopup() {
           type="checkbox"
           name="flavour"
           id="brain-freezer"
-          value="brain-freezer"
+          value="Brain-Freezer"
           className="form-checkbox h-5 w-5 accent-green-500 border-gray-300"
         />
         <span className="text-lg text-gray-800">Brain Freezer</span>
@@ -22,7 +22,7 @@ function FlavourPopup() {
           type="checkbox"
           name="flavour"
           id="commissioner"
-          value="commissioner"
+          value="Commissioner"
           className="form-checkbox h-5 w-5 accent-red-500 border-gray-300"
         />
         <span className="text-lg text-gray-800">Commissioner</span>
@@ -34,7 +34,7 @@ function FlavourPopup() {
           type="checkbox"
           name="flavour"
           id="four-seasons"
-          value="four-seasons"
+          value="Four-Seasons"
           className="form-checkbox h-5 w-5 accent-yellow-500 border-gray-300"
         />
         <span className="text-lg text-gray-800">Four Seasons</span>
@@ -46,7 +46,7 @@ function FlavourPopup() {
           type="checkbox"
           name="flavour"
           id="x-on-the-beach"
-          value="x-on-the-beach"
+          value="X-on-the-Beach"
           className="form-checkbox h-5 w-5 accent-pink-500 border-gray-300"
         />
         <span className="text-lg text-gray-800">X on the Beach</span>
@@ -58,7 +58,7 @@ function FlavourPopup() {
           type="checkbox"
           name="flavour"
           id="dubai-special"
-          value="dubai-special"
+          value="Dubai-Special"
           className="form-checkbox h-5 w-5 accent-blue-500 border-gray-300"
         />
         <span className="text-lg text-gray-800">Dubai Special</span>
@@ -70,7 +70,7 @@ function FlavourPopup() {
           type="checkbox"
           name="flavour"
           id="orange"
-          value="orange"
+          value="Orange"
           className="form-checkbox h-5 w-5 accent-orange-500 border-gray-300"
         />
         <span className="text-lg text-gray-800">Orange</span>
@@ -82,7 +82,7 @@ function FlavourPopup() {
           type="checkbox"
           name="flavour"
           id="guava"
-          value="guava"
+          value="Guava"
           className="form-checkbox h-5 w-5 accent-green-500 border-gray-300"
         />
         <span className="text-lg text-gray-800">Guava</span>
@@ -94,7 +94,7 @@ function FlavourPopup() {
           type="checkbox"
           name="flavour"
           id="grapemint"
-          value="grapemint"
+          value="Grapemint"
           className="form-checkbox h-5 w-5 accent-purple-500 border-gray-300"
         />
         <span className="text-lg text-gray-800">Grapemint</span>
@@ -106,7 +106,7 @@ function FlavourPopup() {
           type="checkbox"
           name="flavour"
           id="grapeberry"
-          value="grapeberry"
+          value="Grapeberry"
           className="form-checkbox h-5 w-5 accent-indigo-500 border-gray-300"
         />
         <span className="text-lg text-gray-800">Grapeberry</span>
@@ -118,7 +118,7 @@ function FlavourPopup() {
           type="checkbox"
           name="flavour"
           id="nightqueen"
-          value="nightqueen"
+          value="Nightqueen"
           className="form-checkbox h-5 w-5 accent-blue-500 border-gray-300"
         />
         <span className="text-lg text-gray-800">Nightqueen</span>
@@ -130,7 +130,7 @@ function FlavourPopup() {
           type="checkbox"
           name="flavour"
           id="nirvana"
-          value="nirvana"
+          value="Nirvana"
           className="form-checkbox h-5 w-5 accent-pink-500 border-gray-300"
         />
         <span className="text-lg text-gray-800">Nirvana</span>
@@ -142,7 +142,7 @@ function FlavourPopup() {
           type="checkbox"
           name="flavour"
           id="marijuana"
-          value="marijuana"
+          value="Marijuana"
           className="form-checkbox h-5 w-5 accent-green-500 border-gray-300"
         />
         <span className="text-lg text-gray-800">Marijuana</span>

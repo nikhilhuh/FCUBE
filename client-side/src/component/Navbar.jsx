@@ -3,8 +3,10 @@ import { GiHamburgerMenu } from "react-icons/gi";
 import { IoIosClose } from "react-icons/io";
 import { FaShoppingCart } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import { useCart } from "../context/Context.jsx";
 
 const Navbar = ({ sidebar, setSidebar, scrollToHero, scrollToProducts }) => {
+  const { state, dispatch } = useCart();
   return (
     <div className="relative w-full">
       <div className="fixed w-full py-2 text-white z-20 bg-gradient-to-r from-primary to-secondary">
@@ -46,7 +48,7 @@ const Navbar = ({ sidebar, setSidebar, scrollToHero, scrollToProducts }) => {
                 <li className="hover:text-yellow-400 hover:font-bold hover:cursor-pointer relative">
                   <FaShoppingCart className="text-2xl" />
                   <div className="absolute top-[-8px] right-[-8px] bg-yellow-500 text-black text-xs rounded-full w-5 h-5 flex items-center justify-center">
-                    0
+                    {state.totalQuantity}
                   </div>
                 </li>
               </Link>
@@ -110,7 +112,7 @@ const Navbar = ({ sidebar, setSidebar, scrollToHero, scrollToProducts }) => {
                         <div className="relative">
                           <FaShoppingCart className="text-2xl" />
                           <div className="absolute top-[-8px] right-[-8px] bg-yellow-500 text-black text-xs rounded-full w-5 h-5 flex items-center justify-center">
-                            0
+                          {state.totalQuantity}
                           </div>
                         </div>
                       </li>

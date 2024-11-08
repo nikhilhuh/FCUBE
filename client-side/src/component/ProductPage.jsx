@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { FaChevronLeft } from "react-icons/fa";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useEffect } from "react";
@@ -8,6 +8,7 @@ import Swal from "sweetalert2";
 import FruitPopup from "./FruitPopup";
 import ReactDOMServer from "react-dom/server";
 import FlavourPopup from "./FlavourPopup";
+import { useCart } from "../context/Context.jsx";
 
 function ProductPage() {
   let navigate = useNavigate();
@@ -17,13 +18,32 @@ function ProductPage() {
   }, []);
 
   const location = useLocation();
+  const { state, dispatch } = useCart(); // Access cart state and dispatch function
   const product = location.state?.product;
+  let selectedFruit , selectedFlavours
+  const [ hours , setHours ] = useState(1)
+
+  const handleincrement = () => {
+    setHours(hours+1)
+  }
+  const handledecrement = () => {
+    if(hours>1){
+      setHours(hours-1)
+    }
+  }
 
   if (!product) {
     return <PageNotFound />;
   }
 
-  function showFruitPopup() {
+  const handleAddToCart = (product_name,product_image,product_original_price,product_offer_price,quantity,selectedFruit,selectedFlavours) => {
+    dispatch({
+      type: 'ADD_TO_CART',
+      payload: { product_name,product_image,product_original_price,product_offer_price,quantity,selectedFruit,selectedFlavours}
+    });
+  };
+
+  function showFruitPopup(product_name,product_image,product_original_price,product_offer_price,quantity) {
     Swal.fire({
       title: "Select Fruit",
       position: "bottom",
@@ -40,14 +60,18 @@ function ProductPage() {
         cancelButton: "bg-red-400 text-black hover:bg-red-500 outline-none",
         actions: "flex-row-reverse",
       },
+      preConfirm: () => {
+        // Return selected fruit for further processing after the user clicks "Next"
+        selectedFruit = document.querySelector('input[name="fruit"]:checked').value;
+      },
     }).then((result) => {
       if (result.isConfirmed) {
         // If "Next" is clicked, show the second popup
-        showFlavourPopup();
+        showFlavourPopup(product_name,product_image,product_original_price,product_offer_price,quantity,selectedFruit);
       }
     });
   }
-  function showFlavourPopup() {
+  function showFlavourPopup(product_name,product_image,product_original_price,product_offer_price,quantity,selectedFruit) {
     Swal.fire({
       title: "Select Flavours",
       position: "bottom",
@@ -65,19 +89,36 @@ function ProductPage() {
         cancelButton: "bg-red-400 text-black hover:bg-red-500 outline-none",
         actions: "flex-row-reverse",
       },
+      preConfirm: () => {
+        // Get all checkboxes with the name "flavour"
+        selectedFlavours = Array.from(
+          document.querySelectorAll('input[name="flavour"]:checked')
+        ).map((checkbox) => checkbox.value);
+      },
     }).then((secondResult) => {
       // If "Back" is clicked, show the first popup again
       if (secondResult.isDismissed) {
-        showFruitPopup();  // Cycle back to the first popup
+        showFruitPopup(product_name,product_image,product_original_price,product_offer_price,quantity);  // Cycle back to the first popup
       }
       else{
-        // add to cart over here 
+        handleAddToCart(product_name,product_image,product_original_price,product_offer_price,quantity,selectedFruit,selectedFlavours);
+        Swal.fire({
+          text: "Item has been added to your cart",
+          icon: "success",
+          position: "top-right",
+          showConfirmButton: false,
+          timer: 1500,
+          customClass: {
+            popup: "md:max-w-[40vw] max-w-[80vw]",
+            text: "text-sm"
+          },
+        })
       }
     });
   }
   
-  const handleCartClicked = () => {
-    showFruitPopup()
+  const handleCartClicked = (product_name,product_image,product_original_price,product_offer_price,quantity) => {
+    showFruitPopup(product_name,product_image,product_original_price,product_offer_price,quantity)
   };
   return (
     <div className="bg-gray-800 py-10 min-h-screen">
@@ -97,7 +138,7 @@ function ProductPage() {
 
             <div className="px-2 mb-2">
               <button
-                onClick={handleCartClicked}
+                onClick={()=>handleCartClicked(product.product_name,product.product_image,product.product_original_price,product.product_offer_price,hours)}
                 className="w-full mb-4 bg-gray-900 dark:bg-gray-600 text-white py-2 px-4 rounded-full font-bold hover:bg-gray-800 dark:hover:bg-gray-700"
               >
                 Add to Cart
@@ -142,6 +183,7 @@ function ProductPage() {
               </span>
               <div className="flex items-center">
                 <button
+                  onClick={handledecrement}
                   type="button"
                   id="decrement-button"
                   data-input-counter-decrement="counter-input"
@@ -169,10 +211,11 @@ function ProductPage() {
                   data-input-counter
                   className="w-10 shrink-0 border-0 bg-transparent text-center text-sm font-medium text-gray-900 focus:outline-none focus:ring-0 dark:text-white"
                   placeholder=""
-                  value="2"
+                  value={hours}
                   readOnly
                 />
                 <button
+                  onClick={handleincrement}
                   type="button"
                   id="increment-button"
                   data-input-counter-increment="counter-input"

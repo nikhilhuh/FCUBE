@@ -11,6 +11,14 @@ function ContactUs() {
     // Scroll to top on component mount
     window.scrollTo(0, 0);
   }, []);
+
+  const handleCopy = () => {
+    const phoneNumber = document.querySelector("#phoneNumber").textContent;
+    navigator.clipboard.writeText(phoneNumber).then(()=>{
+      alert("Phone Number copied to clipboard")
+    })
+  };
+
   return (
     <section className="bg-white dark:bg-gray-900">
       <div className="py-8 lg:py-16 px-4 mx-auto max-w-screen-md">
@@ -20,14 +28,24 @@ function ContactUs() {
         <h2 className="mb-4 text-4xl tracking-tight font-extrabold text-center text-gray-900 dark:text-white mt-[30px] lg:mt-[20px]">
           Contact Us
         </h2>
-        <div className="flex flex-wrap w-full text-xl md:text-3xl text-slate-400 mt-[50px] mb-[50px] px-5 justify-center items-center gap-10 md:gap-20">
-            <div className="flex gap-4 items-center">
-                <FaPhoneAlt />
-                +91 9999999999
+        <div className="flex flex-wrap w-full text-slate-400 mt-[35px] md:mt-[50px] mb-[50px] px-5 justify-evenly items-center gap-5 md:gap-0">
+            <div className="flex-col text-center gap-1">
+              <p className="text-xl text-white">
+                Call us at
+              </p>
+                <p onClick={handleCopy} className="flex gap-2 items-center text-lg">
+                  <FaPhoneAlt />
+                  <span id="phoneNumber">+91 7007613357</span>
+                </p>
             </div>
-            <div className="flex gap-4 items-center">
-                <FaWhatsapp />
-                +91 9999999999
+            <div className="flex-col text-center gap-1">
+              <p className="text-xl text-white">
+                WhatsApp us at
+              </p>
+                <p onClick={handleCopy} className="flex gap-2 items-center text-lg">
+                  <FaWhatsapp />
+                  <span id="phoneNumber">+91 7007613357</span>
+                </p>
             </div>
         </div>
         {/* line */}
