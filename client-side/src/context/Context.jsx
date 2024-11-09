@@ -56,15 +56,11 @@ const cartReducer = (state, action) => {
       };
 
     case REMOVE_FROM_CART:
-      const filteredItems = state.items.filter(item => 
+      const filteredItems = state.items.filter(item =>
         item.product_name !== action.payload.product_name ||
         item.selectedFruit !== action.payload.selectedFruit ||
-        !(
-            Array.isArray(item.selectedFlavours) &&
-            item.selectedFlavours.length === action.payload.selectedFlavours.length &&
-            item.selectedFlavours.every((flavour, index) => flavour === action.payload.selectedFlavours[index])
-        )
-    );    
+        JSON.stringify(item.selectedFlavours) !== JSON.stringify(action.payload.selectedFlavours)
+      );
       const newTotalPrice = filteredItems.reduce(
         (acc, item) => acc + item.product_original_price * item.quantity,
         0

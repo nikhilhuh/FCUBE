@@ -98,7 +98,7 @@ function Cart() {
               {state.items && state.items.length > 0 ? (
                 state.items.map((item) => (
                   <div
-                    key={item.product_name}
+                    key={`${item.product_name}-${item.selectedFlavours}-${item.selectedFruit}`}
                     className="rounded-lg border border-gray-200 bg-white p-4 shadow-sm dark:border-gray-700 dark:bg-gray-800 md:p-6"
                   >
                     <div className="space-y-4 md:flex md:items-center md:justify-between md:gap-6 md:space-y-0">
@@ -213,8 +213,8 @@ function Cart() {
                             onClick={() =>
                               handleRemove(
                                 item.product_name,
-                                item.product_offer_price,
-                                item.quantity
+                                item.selectedFlavours,
+                                item.selectedFruit
                               )
                             }
                           >
