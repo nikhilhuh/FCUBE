@@ -83,7 +83,7 @@ function Cart() {
   return (
     <section className="bg-white py-8 antialiased dark:bg-gray-900 md:py-16">
       <div className="mx-auto max-w-screen-xl px-4 2xl:px-0 mt-[2.5rem] min-h-screen">
-        <div className="cursor-pointer" onClick={() => navigate(-1)}>
+        <div className="cursor-pointer w-max"  onClick={() => navigate(-1)}>
           <FaChevronLeft className="text-white text-3xl mb-6" />
         </div>
         {state.items && state.items.length > 0 && (

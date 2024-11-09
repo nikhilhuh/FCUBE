@@ -123,7 +123,7 @@ function ProductPage() {
   return (
     <div className="bg-gray-800 py-10 min-h-screen">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 mt-[2.5rem]">
-        <div className="cursor-pointer" onClick={() => navigate(-1)}>
+        <div className="cursor-pointer w-max" onClick={() => navigate(-1)}>
           <FaChevronLeft className="text-white text-3xl mb-6" />
         </div>
         <div className="flex flex-col h-full justify-evenly items-center md:flex-row -mx-4 ">

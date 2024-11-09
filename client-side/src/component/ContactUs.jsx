@@ -4,6 +4,7 @@ import { FaPhoneAlt } from "react-icons/fa";
 import { FaChevronLeft } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
+import Swal from "sweetalert2";
 
 function ContactUs() {
   let navigate = useNavigate();
@@ -15,14 +16,24 @@ function ContactUs() {
   const handleCopy = () => {
     const phoneNumber = document.querySelector("#phoneNumber").textContent;
     navigator.clipboard.writeText(phoneNumber).then(()=>{
-      alert("Phone Number copied to clipboard")
+      Swal.fire({
+        title: "Phone Number copied to your clipboard",
+        icon: "success",
+        customClass: {
+          popup: "max-w-[80vw] md:max-w-[50vw]",
+          title: "text-lg lg:text-xl", // Adjust the title font size on small and large screens
+          content: "text-sm sm:text-base", // Smaller font size on small screens
+          confirmButton:
+            "bg-blue-500 text-white hover:bg-blue-600 focus:ring-2 focus:ring-blue-400 focus:outline-none",
+        },
+      });
     })
   };
 
   return (
     <section className="bg-white dark:bg-gray-900">
       <div className="py-8 lg:py-16 px-4 mx-auto max-w-screen-md">
-      <div className="cursor-pointer mt-[2.5rem]" onClick={() => navigate(-1)}>
+      <div className="cursor-pointer mt-[2.5rem] w-max" onClick={() => navigate(-1)}>
           <FaChevronLeft className="text-white text-3xl mb-6" />
         </div>
         <h2 className="mb-4 text-4xl tracking-tight font-extrabold text-center text-gray-900 dark:text-white mt-[30px] lg:mt-[20px]">

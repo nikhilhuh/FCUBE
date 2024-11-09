@@ -21,7 +21,7 @@ function CheckoutForm() {
     // Check if all required fields are filled
     if (!name || !phone || !pinCode || !orderaddress) {
       Swal.fire({
-        title: "Plaese fill in all your required details",
+        title: "Please fill in all your required details",
         icon: "warning",
         customClass: {
           popup: "max-w-[80vw] md:max-w-[50vw]",
@@ -53,7 +53,7 @@ function CheckoutForm() {
     <section className="bg-white py-8 antialiased dark:bg-gray-900 md:py-16">
       <form action="#" className="mx-auto max-w-screen-xl px-4 2xl:px-0">
         <div
-          className="cursor-pointer mt-[2.5rem]"
+          className="cursor-pointer mt-[2.5rem] w-max"
           onClick={() => navigate(-1)}
         >
           <FaChevronLeft className="text-white text-3xl mb-6" />

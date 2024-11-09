@@ -19,7 +19,6 @@ const App = () => {
   // Create refs for Hero and Products sections
   const heroRef = useRef(null);
   const productsRef = useRef(null);
-  const [showProducts , setShowProducts ] = useState(false);
 
   const [sidebar, setSidebar] = useState(false);
 
@@ -42,6 +41,7 @@ const App = () => {
       once: true, // Set to true to animate only on first scroll
     });
     AOS.refresh();
+
   }, []);
 
   return (
@@ -49,7 +49,6 @@ const App = () => {
       <Navbar
         sidebar={sidebar}
         setSidebar={setSidebar}
-        setShowProducts = {setShowProducts}
         scrollToHero={() => scrollToSection(heroRef)}
         scrollToProducts={() => scrollToSection(productsRef)}
       />

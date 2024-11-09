@@ -1,13 +1,7 @@
-import React, { createContext, useReducer, useContext } from "react";
+import React, { createContext, useReducer, useContext, useEffect } from "react";
 
 // Initial state for the cart
-const initialState = {
-  items: [], // Will store products added to the cart
-  totalQuantity: 0, // Total number of items in the cart
-  totalPrice: 0, // Total price of items in the cart
-  savings: 0,
-  finalPrice: 0,
-};
+const initialState = JSON.parse(localStorage.getItem("cart")) || { items: [], totalPrice: 0, savings: 0, finalPrice: 0 };
 
 // Cart action types
 const ADD_TO_CART = "ADD_TO_CART";
@@ -16,6 +10,7 @@ const UPDATE_QUANTITY = "UPDATE_QUANTITY";
 
 // Reducer function to handle cart actions
 const cartReducer = (state, action) => {
+  let newState;
   switch (action.type) {
     case ADD_TO_CART:
       // Check if product is already in the cart
@@ -47,13 +42,14 @@ const cartReducer = (state, action) => {
       const updatedFinalPrice = parseFloat(
         (updatedTotalPrice - updatedSavings).toFixed(2)
       );
-      return {
+      newState = {
         items: updatedItems,
         totalQuantity: updatedTotalQuantity,
         totalPrice: updatedTotalPrice,
         savings: updatedSavings,
         finalPrice: updatedFinalPrice,
       };
+      break;
 
     case REMOVE_FROM_CART:
       const filteredItems = state.items.filter(item =>
@@ -71,13 +67,14 @@ const cartReducer = (state, action) => {
       );
       const newSavings = parseFloat((newTotalPrice * 0.3).toFixed(2));
       const newFinalPrice = parseFloat((newTotalPrice - newSavings).toFixed(2));
-      return {
+      newState = {
         items: filteredItems,
         totalQuantity: newTotalQuantity,
         totalPrice: newTotalPrice,
         savings: newSavings,
         finalPrice: newFinalPrice,
       };
+      break;
 
     case UPDATE_QUANTITY:
       const itemIndex = state.items.findIndex(item => 
@@ -107,19 +104,23 @@ const cartReducer = (state, action) => {
         const newFinalPrice = parseFloat(
           (updatedPrice - newSavings).toFixed(2)
         );
-        return {
+        newState = {
           items: updatedCartItems,
           totalQuantity: updatedQuantity,
           totalPrice: updatedPrice,
           savings: newSavings,
           finalPrice: newFinalPrice,
         };
+      } else {
+        newState = state;
       }
-      return state;
+      break;
 
-    default:
-      return state;
+     default:
+      newState = state;
   }
+
+  return newState;
 };
 
 // Create the Cart context
@@ -128,6 +129,11 @@ const CartContext = createContext();
 // Cart provider component to wrap the app
 export const CartProvider = ({ children }) => {
   const [state, dispatch] = useReducer(cartReducer, initialState);
+
+  // Update localStorage whenever the cart state changes
+  useEffect(() => {
+    localStorage.setItem("cart", JSON.stringify(state));
+  }, [state]);
 
   return (
     <CartContext.Provider value={{ state, dispatch }}>
