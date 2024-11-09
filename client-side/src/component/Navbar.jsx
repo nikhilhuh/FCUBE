@@ -48,7 +48,7 @@ const Navbar = ({ sidebar, setSidebar, scrollToHero, scrollToProducts }) => {
                 <li className="hover:text-yellow-400 hover:font-bold hover:cursor-pointer relative">
                   <FaShoppingCart className="text-2xl" />
                   <div className="absolute top-[-8px] right-[-8px] bg-yellow-500 text-black text-xs rounded-full w-5 h-5 flex items-center justify-center">
-                    {state.totalQuantity}
+                    {state.items.length}
                   </div>
                 </li>
               </Link>
@@ -112,7 +112,7 @@ const Navbar = ({ sidebar, setSidebar, scrollToHero, scrollToProducts }) => {
                         <div className="relative">
                           <FaShoppingCart className="text-2xl" />
                           <div className="absolute top-[-8px] right-[-8px] bg-yellow-500 text-black text-xs rounded-full w-5 h-5 flex items-center justify-center">
-                          {state.totalQuantity}
+                          {state.items.length}
                           </div>
                         </div>
                       </li>
