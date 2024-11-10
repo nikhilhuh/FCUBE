@@ -1,22 +1,35 @@
 import React from "react";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { FaChevronLeft } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
+import axios from "axios";
+import { backend_url } from "../App";
+import { useCart } from "../context/Context.jsx";
 
 function CheckoutForm() {
+  const [selectedCity, setSelectedCity] = useState("Kanpur");
+
   let navigate = useNavigate();
+  const { state } = useCart(); // Access cart state function
   useEffect(() => {
     // Scroll to top on component mount
     window.scrollTo(0, 0);
   }, []);
-  const handleOrderClicked = () => {
-    event.preventDefault(); // Prevent default form submission
 
+  const handleSubmit = () => {
     const name = document.getElementById("your_name").value.trim();
     const phone = document.getElementById("phone-input").value.trim();
     const pinCode = document.getElementById("pin_code").value.trim();
     const orderaddress = document.getElementById("order_address").value.trim();
+    let email = document.getElementById("your_email").value.trim();
+
+    // Check if the email is empty, and if so, set it to "Not Available"
+    if (!email) {
+      email = "Not Available";
+    }
+    let cartItems = state.items;
+    let finalPrice = state.finalPrice;
 
     // Check if all required fields are filled
     if (!name || !phone || !pinCode || !orderaddress) {
@@ -32,26 +45,57 @@ function CheckoutForm() {
         },
       });
     } else {
-      Swal.fire({
-        title: "Your order has been placed",
-        icon: "success",
-        customClass: {
-          popup: "max-w-[80vw] md:max-w-[50vw]",
-          title: "text-lg lg:text-xl", // Adjust the title font size on small and large screens
-          content: "text-sm sm:text-base", // Smaller font size on small screens
-          confirmButton:
-            "bg-blue-500 text-white hover:bg-blue-600 focus:ring-2 focus:ring-blue-400 focus:outline-none",
-        },
-      }).then(() => {
-        navigate(-1);
-      });
-      
+      axios
+        .post(`${backend_url}/api/order`, {
+          name,
+          phone,
+          pinCode,
+          orderaddress,
+          selectedCity,
+          cartItems,
+          finalPrice,
+          email,
+        })
+        .then((response) => {
+          Swal.fire({
+            title: response?.data?.message || "Your order has been placed",
+            icon: "success",
+            customClass: {
+              popup: "max-w-[80vw] md:max-w-[50vw]",
+              title: "text-lg lg:text-xl",
+              content: "text-sm sm:text-base",
+              confirmButton:
+                "bg-blue-500 text-white hover:bg-blue-600 focus:ring-2 focus:ring-blue-400 focus:outline-none",
+            },
+          }).then(() => {
+            navigate(-1); // Navigate back on confirmation
+          });
+        })
+        .catch((error) => {
+          Swal.fire({
+            title: "Error placing order",
+            text:
+              error.response?.data?.message ||
+              "An error occurred. Please try again.",
+            icon: "error",
+            customClass: {
+              popup: "max-w-[80vw] md:max-w-[50vw]",
+              title: "text-lg lg:text-xl",
+              content: "text-sm sm:text-base",
+              confirmButton:
+                "bg-red-500 text-white hover:bg-red-600 focus:ring-2 focus:ring-red-400 focus:outline-none",
+            },
+          });
+        });
     }
   };
 
   return (
     <section className="bg-white py-8 antialiased dark:bg-gray-900 md:py-16">
-      <form action="#" className="mx-auto max-w-screen-xl px-4 2xl:px-0">
+      <form
+        onSubmit={(e) => { e.preventDefault(); handleSubmit(); }}
+        className="mx-auto max-w-screen-xl px-4 2xl:px-0"
+      >
         <div
           className="cursor-pointer mt-[2.5rem] w-max"
           onClick={() => navigate(-1)}
@@ -69,7 +113,7 @@ function CheckoutForm() {
                 <div>
                   <label
                     htmlFor="your_name"
-                    className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
+                    className="mb-2 block text-sm max-w-max font-medium text-gray-900 dark:text-white"
                   >
                     {" "}
                     Your name{" "}
@@ -86,7 +130,7 @@ function CheckoutForm() {
                 <div>
                   <label
                     htmlFor="your_email"
-                    className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
+                    className="mb-2 block text-sm max-w-max font-medium text-gray-900 dark:text-white"
                   >
                     {" "}
                     Your email <span className="text-gray-400">(Optional)</span>
@@ -102,7 +146,7 @@ function CheckoutForm() {
                 <div>
                   <label
                     htmlFor="order_address"
-                    className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
+                    className="mb-2 block text-sm max-w-max font-medium text-gray-900 dark:text-white"
                   >
                     {" "}
                     Address{" "}
@@ -119,14 +163,14 @@ function CheckoutForm() {
                   <div className="mb-2 flex items-center gap-2">
                     <label
                       htmlFor="select-city-input-3"
-                      className="block text-sm font-medium text-gray-900 dark:text-white"
+                      className="block text-sm max-w-max font-medium text-gray-900 dark:text-white"
                     >
                       {" "}
                       City{" "}
                     </label>
                   </div>
                   <select
-                    value="Kanpur"
+                    value={selectedCity}
                     onChange={(e) => setSelectedValue(e.target.value)}
                     id="select-city-input-3"
                     className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-primary-500 dark:focus:ring-primary-500 outline-none"
@@ -138,7 +182,7 @@ function CheckoutForm() {
                 <div>
                   <label
                     htmlFor="phone-input"
-                    className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
+                    className="mb-2 block max-w-max text-sm font-medium text-gray-900 dark:text-white"
                   >
                     {" "}
                     Phone Number{" "}
@@ -236,7 +280,7 @@ function CheckoutForm() {
                 <div>
                   <label
                     htmlFor="pin_code"
-                    className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
+                    className="mb-2 block text-sm font-medium max-w-max text-gray-900 dark:text-white"
                   >
                     {" "}
                     PIN Code{" "}
@@ -275,7 +319,7 @@ function CheckoutForm() {
                     <div className="ms-4 text-sm">
                       <label
                         htmlFor="pay-on-delivery"
-                        className="font-medium leading-none text-gray-900 dark:text-white"
+                        className="font-medium leading-none max-w-max text-gray-900 dark:text-white"
                       >
                         {" "}
                         Payment on delivery{" "}
@@ -284,7 +328,7 @@ function CheckoutForm() {
                         id="pay-on-delivery-text"
                         className="mt-1 text-xs font-normal text-gray-500 dark:text-gray-400"
                       >
-                        +$15 payment processing fee
+                        Your delivery charge is on us (Free)
                       </p>
                     </div>
                   </div>
@@ -293,7 +337,6 @@ function CheckoutForm() {
             </div>
 
             <button
-              onClick={handleOrderClicked}
               type="submit"
               className="flex w-full items-center justify-center rounded-lg px-5 py-2.5 text-sm font-bold text-shadow text-black outline-none bg-green-400 hover:bg-green-800"
             >

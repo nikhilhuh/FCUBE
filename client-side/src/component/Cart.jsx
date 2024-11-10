@@ -117,8 +117,8 @@ function Cart() {
                               handleDecrement(item.product_name,item.selectedFlavours,item.selectedFruit, item.quantity)
                             }
                             type="button"
-                            id="decrement-button"
-                            data-input-counter-decrement="counter-input"
+                            id={`decrement-button-${item.product_name}`}
+                            data-input-counter-decrement={`counter-input-${item.product_name}`}
                             className="inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-md border border-gray-300 bg-gray-100 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-100 dark:border-gray-600 dark:bg-gray-700 dark:hover:bg-gray-600 dark:focus:ring-gray-700"
                           >
                             <svg
@@ -139,7 +139,7 @@ function Cart() {
                           </button>
                           <input
                             type="text"
-                            id="counter-input"
+                            id={`counter-input-${item.product_name}`}
                             data-input-counter
                             className="w-10 shrink-0 border-0 bg-transparent text-center text-sm font-medium text-gray-900 focus:outline-none focus:ring-0 dark:text-white"
                             placeholder=""
@@ -151,8 +151,8 @@ function Cart() {
                               handleIncrement(item.product_name,item.selectedFlavours,item.selectedFruit, item.quantity)
                             }
                             type="button"
-                            id="increment-button"
-                            data-input-counter-increment="counter-input"
+                            id={`increment-button-${item.product_name}`}
+                            data-input-counter-increment={`counter-input-${item.product_name}`}
                             className="inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-md border border-gray-300 bg-gray-100 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-100 dark:border-gray-600 dark:bg-gray-700 dark:hover:bg-gray-600 dark:focus:ring-gray-700"
                           >
                             <svg

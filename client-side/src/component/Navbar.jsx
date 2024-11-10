@@ -1,4 +1,5 @@
 import React from "react";
+import { useEffect } from "react";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { IoIosClose } from "react-icons/io";
 import { FaShoppingCart } from "react-icons/fa";
@@ -6,7 +7,21 @@ import { Link } from "react-router-dom";
 import { useCart } from "../context/Context.jsx";
 
 const Navbar = ({ sidebar, setSidebar, scrollToHero, scrollToProducts }) => {
-  const { state, dispatch } = useCart();
+  const { state } = useCart();
+  useEffect(() => {
+    // Lock body scroll when the sidebar is open
+    if (sidebar) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+
+    return () => {
+      // Clean up to restore normal scrolling behavior on unmount or when sidebar closes
+      document.body.style.overflow = "auto";
+    };
+  }, [sidebar]);
+
   return (
     <div className="relative w-full">
       <div className="fixed w-full py-2 text-white z-20 bg-gradient-to-r from-primary to-secondary">
@@ -64,7 +79,7 @@ const Navbar = ({ sidebar, setSidebar, scrollToHero, scrollToProducts }) => {
 
             {/* Sidebar Menu for Mobile */}
             {sidebar && (
-              <div className={`absolute top-[120%] w-[100%] py-6 text-lg font-bold pl-5 bg-primaryDark h-[635px] origin-right right-0 flex flex-col justify-between transform ${
+              <div style={{ height: "calc(100vh - 56.8px)" }} className={`absolute top-[56.8px] w-[100%] py-6 text-lg font-bold pl-5 bg-primaryDark origin-right right-0 flex flex-col justify-between transform ${
                 sidebar ? 'animate-slideIn' : 'animate-slideOut'
               }`}>
                 <div>
