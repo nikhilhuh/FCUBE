@@ -79,7 +79,7 @@ const Navbar = ({ sidebar, setSidebar, scrollToHero, scrollToProducts }) => {
 
             {/* Sidebar Menu for Mobile */}
             {sidebar && (
-              <div style={{ height: "calc(100vh - 49px)" }} className={`absolute top-[49px] w-[100%] py-6 text-lg font-bold pl-5 bg-primaryDark origin-right right-0 flex flex-col justify-between transform ${
+              <div style={{ height: "calc(100vh - 41px)" }} className={`absolute overflow-hidden top-[110%] w-[100%] py-6 text-lg font-bold pl-5 bg-primaryDark origin-right right-0 flex flex-col justify-between transform ${
                 sidebar ? 'animate-slideIn' : 'animate-slideOut'
               }`}>
                 <div>
