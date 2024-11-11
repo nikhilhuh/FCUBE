@@ -13,7 +13,7 @@ import CheckoutForm from "./component/CheckoutForm.jsx";
 import PageNotFound from "./component/PageNotFound.jsx";
 
 // This will get the environment variable in React
-export const backend_url = "http://localhost:3000";
+export const backend_url = "https://fcube-server.onrender.com";
 
 const App = () => {
   // Create refs for Hero and Products sections
