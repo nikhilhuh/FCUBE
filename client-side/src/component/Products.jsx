@@ -43,7 +43,7 @@ function Products() {
               />
             </div>
             <div className="flex flex-col py-3 px-3 pb-10">
-              <h1 className="font-bold text-lg max-h-[58px] overflow-hidden text-ellipsis line-clamp-2">
+              <h1 className="font-bold text-lg max-h-[58px] min-h-[58px] overflow-hidden text-ellipsis line-clamp-2">
                 {product.product_name}
               </h1>
               <p className="mt-[14px]">
