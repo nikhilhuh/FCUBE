@@ -81,15 +81,21 @@ resetOrderNumberDaily();
 // Function to reset order number at midnight
 function resetOrderNumberDaily() {
   const now = new Date();
-  const millisUntilMidnight =
-    new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1).getTime() -
-    now.getTime();
+  const targetMidnight = new Date(now);
+  targetMidnight.setUTCHours(18, 30, 0, 0); // Midnight IST (UTC +5:30)
+
+  if (now > targetMidnight) {
+    targetMidnight.setUTCDate(targetMidnight.getUTCDate() + 1); // Set to next day's midnight if past
+  }
+
+  const millisUntilMidnight = targetMidnight.getTime() - now.getTime();
 
   setTimeout(() => {
     orderNumber = 0; // Reset order number
     resetOrderNumberDaily(); // Schedule the next reset
   }, millisUntilMidnight);
 }
+
 
 function sendSMS(message) {
   // Return the promise to ensure we can wait for completion
@@ -120,8 +126,8 @@ app.post("/api/order", (req, res) => {
 
   // Get current date and time
   const now = new Date();
-  const formattedDate = now.toLocaleDateString();
-  const formattedTime = now.toLocaleTimeString();
+  const formattedDate = now.toLocaleDateString('en-IN');
+  const formattedTime = now.toLocaleTimeString('en-IN', { hour12: true });
 
   let message = `New order received at
   \n${formattedTime} ${formattedDate}
@@ -165,7 +171,14 @@ app.post("/api/order", (req, res) => {
 app.post("/api/contact", (req, res) => {
   const { name, subject, phoneNumber, contact_message } = req.body;
 
-  let message = `Contact Request from
+   // Get current date and time
+   const now = new Date();
+   const formattedDate = now.toLocaleDateString('en-IN');
+   const formattedTime = now.toLocaleTimeString('en-IN', { hour12: true });
+
+  let message = `Contact Request at
+  \n${formattedTime} ${formattedDate} 
+  \nfrom
   \nName: ${name}
   \nPhone: ${phoneNumber}
   \nSubject: ${subject}
