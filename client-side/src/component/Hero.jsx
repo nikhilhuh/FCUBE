@@ -9,12 +9,11 @@ const Hero = ({ scrollToProducts }) => {
   }, []);
   return (
     <section className="px-4 min-h-screen max-w-full bg-gradient-to-r from-primary to-secondary w-screen shadow-md">
-      <div></div>
 
       <div className="container md:px-4">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 place-items-center min-h-[665px]">
           {/* text-content-section */}
-          <div className="text-white mt-[100px] md:mt-0 p-2 space-y-4 lg:space-y-10 md:pl-14">
+          <div className="text-white mt-[100px] md:mt-[20vh] p-2 space-y-4 lg:space-y-10 md:pl-14">
             <h1
               data-aos="fade-up"
               className="text-2xl md:text-5xl font-bold uppercase text-shadow"
@@ -48,7 +47,7 @@ const Hero = ({ scrollToProducts }) => {
           </div>
           {/* image section */}
           <div
-            className="text-center md:mt-[100px] relative"
+            className="text-center md:mt-[25vh] relative"
             data-aos="zoom-in"
           >
             <img

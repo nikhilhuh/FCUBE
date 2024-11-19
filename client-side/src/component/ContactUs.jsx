@@ -112,14 +112,14 @@ function ContactUs() {
         <div className="flex flex-wrap w-full text-slate-400 mt-[35px] md:mt-[50px] mb-[50px] px-5 justify-evenly items-center gap-5 md:gap-0">
           <div className="flex-col text-center gap-1">
             <p className="text-xl text-white">Call us at</p>
-            <p onClick={handleCopy} className="flex gap-2 items-center text-lg">
+            <p onClick={handleCopy} className="flex gap-2 items-center text-lg cursor-pointer">
               <FaPhoneAlt />
               <span id="phoneNumber">+91 7007613357</span>
             </p>
           </div>
           <div className="flex-col text-center gap-1">
             <p className="text-xl text-white">WhatsApp us at</p>
-            <p onClick={handleCopy} className="flex gap-2 items-center text-lg">
+            <p onClick={handleCopy} className="flex gap-2 items-center text-lg cursor-pointer">
               <FaWhatsapp />
               <span id="phoneNumber">+91 7007613357</span>
             </p>
