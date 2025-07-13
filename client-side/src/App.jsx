@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+  import React, { useState, useRef, useEffect } from "react";
 import Hero from "./component/Hero.jsx";
 import AOS from "aos";
 import "aos/dist/aos.css";
