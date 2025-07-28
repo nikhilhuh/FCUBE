@@ -6,7 +6,8 @@ import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import Swal from "sweetalert2";
 import axios from "axios";
-import { backend_url } from "../App";
+
+const backend_url = import.meta.env.VITE_BACKEND_URL;
 
 function ContactUs() {
   let navigate = useNavigate();
@@ -98,7 +99,7 @@ function ContactUs() {
   };
 
   return (
-    <section className="bg-white dark:bg-gray-900">
+    <section className="bg-primary">
       <div className="py-8 lg:py-16 px-4 mx-auto max-w-screen-md">
         <div
           className="cursor-pointer mt-[2.5rem] w-max"
@@ -114,14 +115,14 @@ function ContactUs() {
             <p className="text-xl text-white">Call us at</p>
             <p onClick={handleCopy} className="flex gap-2 items-center text-lg cursor-pointer">
               <FaPhoneAlt />
-              <span id="phoneNumber">+91 7007613357</span>
+              <span id="phoneNumber">+91 1722182781</span>
             </p>
           </div>
           <div className="flex-col text-center gap-1">
             <p className="text-xl text-white">WhatsApp us at</p>
             <p onClick={handleCopy} className="flex gap-2 items-center text-lg cursor-pointer">
               <FaWhatsapp />
-              <span id="phoneNumber">+91 7007613357</span>
+              <span id="phoneNumber">+91 1722182781</span>
             </p>
           </div>
         </div>
@@ -266,7 +267,7 @@ function ContactUs() {
           <div className="w-full flex justify-center items-center">
             <button
               type="submit"
-              className="py-3 px-5 text-lg font-medium text-center text-white rounded-lg bg-primary sm:w-fit hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+              className="px-6 py-3 rounded-lg bg-white text-black font-semibold transition-all duration-300 hover:bg-gradient-to-r hover:from-pink-500 hover:to-yellow-300 hover:text-white hover:shadow-xl"
             >
               Send message
             </button>

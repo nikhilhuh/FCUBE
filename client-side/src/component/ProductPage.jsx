@@ -3,12 +3,13 @@ import { FaChevronLeft } from "react-icons/fa";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useEffect } from "react";
 import PageNotFound from "../component/PageNotFound";
-import { backend_url } from "../App";
 import Swal from "sweetalert2";
 import FruitPopup from "./FruitPopup";
 import ReactDOMServer from "react-dom/server";
 import FlavourPopup from "./FlavourPopup";
 import { useCart } from "../context/Context.jsx";
+
+const backend_url = import.meta.env.VITE_BACKEND_URL;
 
 function ProductPage() {
   let navigate = useNavigate();
@@ -121,155 +122,125 @@ function ProductPage() {
     showFruitPopup(product_name,product_image,product_original_price,product_offer_price,quantity)
   };
   return (
-    <div className="bg-gray-800 py-10 min-h-screen">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 mt-[2.5rem]">
-        <div className="cursor-pointer w-max" onClick={() => navigate(-1)}>
-          <FaChevronLeft className="text-white text-3xl mb-6" />
-        </div>
-        <div className="flex flex-col h-full justify-evenly items-center md:flex-row -mx-4 ">
-          <div className="md:flex-1 justify-center px-4">
-            <div className="h-[250px] md:h-[460px] rounded-lg bg-gray-300 dark:bg-gray-700 mb-4">
-              <img
-                className="w-full h-full rounded-lg object-fill"
-                src={`${backend_url}${product.product_image}`}
-                alt={product.product_name}
-              />
-            </div>
+  <div className="bg-[#1a1a2e] text-white py-10 min-h-screen">
+    <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 mt-[2.5rem]">
+      <div className="cursor-pointer w-max" onClick={() => navigate(-1)}>
+        <FaChevronLeft className="text-yellow-400 text-3xl mb-6 hover:scale-110 transition-transform" />
+      </div>
 
-            <div className="px-2 mb-2">
-              <button
-                onClick={()=>handleCartClicked(product.product_name,product.product_image,product.product_original_price,product.product_offer_price,hours)}
-                className="w-full mb-4 bg-gray-900 dark:bg-gray-600 text-white py-2 px-4 rounded-full font-bold hover:bg-gray-800 dark:hover:bg-gray-700"
-              >
-                Add to Cart
+      <div className="flex flex-col md:flex-row gap-10 items-center md:items-start">
+        {/* Product Image */}
+        <div className="md:w-1/2 w-full">
+          <div className="h-[250px] md:h-[460px] rounded-xl overflow-hidden shadow-lg bg-gray-700">
+            <img
+              className="w-full h-full object-cover"
+              src={`${backend_url}${product.product_image}`}
+              alt={product.product_name}
+            />
+          </div>
+
+          <div className="mt-6">
+            <button
+              onClick={() =>
+                handleCartClicked(
+                  product.product_name,
+                  product.product_image,
+                  product.product_original_price,
+                  product.product_offer_price,
+                  hours
+                )
+              }
+              className="w-full py-3 rounded-full bg-yellow-400 text-black font-bold text-lg hover:bg-yellow-300 transition"
+            >
+              Add to Cart
+            </button>
+
+            <Link to="/cart">
+              <button className="w-full mt-4 py-3 rounded-full bg-gray-800 border border-yellow-400 text-yellow-400 font-bold text-lg hover:bg-gray-700 transition">
+                View Cart
               </button>
+            </Link>
+          </div>
+        </div>
 
-              <Link to="/cart">
-                <button className="w-full bg-yellow-400 text-black font-bold py-2 px-4 rounded-full hover:scale-105">
-                  View Cart
-                </button>
-              </Link>
+        {/* Product Info */}
+        <div className="md:w-1/2 w-full space-y-6">
+          <h2 className="text-3xl font-bold text-yellow-300">
+            {product.product_name}
+          </h2>
+          <p className="text-gray-300 text-sm">{product.product_info}</p>
+
+          <div className="space-y-2">
+            <div className="text-lg">
+              <span className="text-gray-400 mr-2">Price:</span>
+              <span className="line-through text-red-400 mr-2">
+                ₹{product.product_original_price}
+              </span>
+              <span className="text-yellow-400 font-semibold text-xl">
+                ₹{product.product_offer_price} /hr
+              </span>
+            </div>
+            <div className="text-lg">
+              <span className="text-gray-400 mr-2">Availability:</span>
+              <span className="text-green-400">In Stock</span>
             </div>
           </div>
-          <div className="md:flex-1 px-4">
-            <h2 className="text-3xl mt-2 font-bold text-gray-800 dark:text-white mb-2">
-              {product.product_name}
-            </h2>
-            <p className="text-gray-600 dark:text-gray-300 text-sm mb-4">
-              {product.product_info}
-            </p>
-            <div className="flex-wrap mb-4">
-              <div className="mr-4 space-x-4">
-                <span className="font-bold text-xl text-gray-300">Price:</span>
-                <span className="text-xl text-gray-300">
-                  Rs.{" "}
-                  <span className="line-through mr-2 text-lg">
-                    {product.product_original_price}
-                  </span>
-                  <span id="price">{product.product_offer_price}</span> /hr
-                </span>
-              </div>
-              <div className="mr-4 space-x-4">
-                <span className="font-bold text-xl text-gray-300">
-                  Availability:
-                </span>
-                <span className="text-xl text-gray-300">In Stock</span>
-              </div>
-            </div>
 
-            <div className="mb-4 flex justify-between flex-wrap">
-              <span className="font-bold text-gray-700 dark:text-gray-300">
-                Choose Hours :
-              </span>
-              <div className="flex items-center">
-                <button
-                  onClick={handledecrement}
-                  type="button"
-                  id="decrement-button"
-                  data-input-counter-decrement="counter-input"
-                  className="inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-md border border-gray-300 bg-gray-100 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-100 dark:border-gray-600 dark:bg-gray-700 dark:hover:bg-gray-600 dark:focus:ring-gray-700"
-                >
-                  <svg
-                    className="h-2.5 w-2.5 text-gray-900 dark:text-white"
-                    aria-hidden="true"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 18 2"
-                  >
-                    <path
-                      stroke="currentColor"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M1 1h16"
-                    />
-                  </svg>
-                </button>
-                <input
-                  type="text"
-                  id="counter-input"
-                  data-input-counter
-                  className="w-10 shrink-0 border-0 bg-transparent text-center text-sm font-medium text-gray-900 focus:outline-none focus:ring-0 dark:text-white"
-                  placeholder=""
-                  value={hours}
-                  readOnly
-                />
-                <button
-                  onClick={handleincrement}
-                  type="button"
-                  id="increment-button"
-                  data-input-counter-increment="counter-input"
-                  className="inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-md border border-gray-300 bg-gray-100 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-100 dark:border-gray-600 dark:bg-gray-700 dark:hover:bg-gray-600 dark:focus:ring-gray-700"
-                >
-                  <svg
-                    className="h-2.5 w-2.5 text-gray-900 dark:text-white"
-                    aria-hidden="true"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 18 18"
-                  >
-                    <path
-                      stroke="currentColor"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M9 1v16M1 9h16"
-                    />
-                  </svg>
-                </button>
-              </div>
+          <div>
+            <span className="block font-semibold text-gray-400 mb-2">
+              Choose Hours:
+            </span>
+            <div className="flex items-center space-x-4">
+              <button
+                onClick={handledecrement}
+                className="w-8 h-8 rounded-full bg-gray-700 hover:bg-gray-600 flex items-center justify-center text-white font-bold"
+              >
+                –
+              </button>
+              <input
+                type="text"
+                value={hours}
+                readOnly
+                className="w-12 text-center bg-transparent border border-gray-600 rounded-md text-lg font-semibold text-white"
+              />
+              <button
+                onClick={handleincrement}
+                className="w-8 h-8 rounded-full bg-gray-700 hover:bg-gray-600 flex items-center justify-center text-white font-bold"
+              >
+                +
+              </button>
             </div>
-            <div>
-              <span className="font-bold text-gray-700 dark:text-gray-300">
-                Product Description:
-              </span>
-              <ul className="text-gray-300 text-sm mt-2">
-                <li>Model with approx. 16 inches height</li>
-                <li>Stainless steel full body</li>
-                <li>Superb quality shisha in collection</li>
-                <li>Purely stainless steel shisha</li>
-                <li>Get hassle free experience in outdoor sessions as well</li>
-                <li>Lock system helps you to hold it easily and comfortably</li>
-                <li>Convenient for open party sessions</li>
-                <li>
-                  User friendly shisha, very much easy to assemble and dissemble
-                </li>
-              </ul>
-            </div>
-            <div className="font-bold text-white mt-[1rem]">
-              NOTE:
-              <ul className="">
-                <li>
-                  You must be 18 years of age or order to purchase this product.
-                </li>
-                <li>Base Color or Stem Design may vary</li>
-              </ul>
-            </div>
+          </div>
+
+          <div>
+            <span className="block font-semibold text-gray-400 mb-2">
+              Product Description:
+            </span>
+            <ul className="list-disc list-inside space-y-1 text-sm text-gray-300">
+              <li>Model with approx. 16 inches height</li>
+              <li>Stainless steel full body</li>
+              <li>Superb quality shisha in collection</li>
+              <li>Purely stainless steel shisha</li>
+              <li>Hassle-free experience in outdoor sessions</li>
+              <li>Lock system helps with grip and comfort</li>
+              <li>Perfect for open party sessions</li>
+              <li>User-friendly, easy to assemble and disassemble</li>
+            </ul>
+          </div>
+
+          <div className="mt-4 bg-gray-900 p-4 rounded-lg text-sm text-yellow-200 font-medium space-y-2">
+            <p>NOTE:</p>
+            <ul className="list-disc list-inside">
+              <li>You must be 18+ to purchase this product.</li>
+              <li>Base color or stem design may vary.</li>
+            </ul>
           </div>
         </div>
       </div>
     </div>
-  );
+  </div>
+);
+
 }
 
 export default ProductPage;

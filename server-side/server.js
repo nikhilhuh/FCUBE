@@ -4,9 +4,13 @@ const cors = require("cors");
 const app = express();
 const port = 3000;
 
+require("dotenv").config();
+
+const FRONTEND_URL = process.env.FRONTEND_URL;
+
 // Configure CORS
 const corsOptions = {
-  origin: "*", // Replace with your frontend URL for security in production
+  origin: FRONTEND_URL,
 };
 app.use(cors(corsOptions));
 // Middleware for parsing JSON request bodies
@@ -65,7 +69,6 @@ app.get("/api/products", (req, res) => {
 });
 
 // sending sms when ordered
-require("dotenv").config();
 const accountSID = process.env.TWILIO_ACCOUNT_SID;
 const authToken = process.env.TWILIO_AUTH_TOKEN;
 const fromPhoneNumber = process.env.TWILIO_PHONE_NUMBER;

@@ -1,62 +1,62 @@
-import React from "react";
+import React, { useEffect } from "react";
 import HeroImg from "../assets/herohookah.png";
-import { useEffect } from "react";
 
 const Hero = ({ scrollToProducts }) => {
   useEffect(() => {
-    // Scroll to top on component mount
     window.scrollTo(0, 0);
   }, []);
-  return (
-    <section className="px-4 min-h-screen max-w-full bg-gradient-to-r from-primary to-secondary w-screen shadow-md">
 
-      <div className="container md:px-4">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 place-items-center min-h-[665px]">
-          {/* text-content-section */}
-          <div className="text-white mt-[100px] md:mt-[20vh] p-2 space-y-4 lg:space-y-10 md:pl-14">
+  return (
+    <section className="min-h-screen overflow-x-hidden bg-gradient-to-r from-[#1e1b28] via-[#332544] to-[#3f1f38] px-4 py-12">
+      <div className="container mx-auto max-w-7xl px-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 items-center min-h-[665px] gap-10">
+          {/* Text content */}
+          <div className="text-white space-y-6 md:space-y-10 mt-10 md:mt-0 md:pl-8">
             <h1
               data-aos="fade-up"
-              className="text-2xl md:text-5xl font-bold uppercase text-shadow"
+              className="text-3xl sm:text-4xl md:text-5xl font-extrabold leading-tight tracking-wide text-shadow-lg"
             >
-              Elevate Your Event with Luxurious Hookah Experiences!
+              Elevate Your Event with <br className="hidden md:block" />
+              <span className="bg-gradient-to-r from-pink-500 via-red-400 to-yellow-300 bg-clip-text text-transparent">
+                Luxurious Hookah Experiences!
+              </span>
             </h1>
-            <p data-aos="fade-up" data-aos-delay="300" className="text-sm">
-              <span className="lg:block hidden">
-                Immerse your guests in an unforgettable sensory experience with
-                our premium hookah catering service.
-              </span>
-              We specialize in crafting luxurious hookahs that feature fresh
-              fruit chillums and an array of exotic molasses flavors to suit
-              every palate.
-              <span className="lg:block hidden">
-                From the rich sweetness of tropical fruits to the earthy
-                undertones of rare, artisanal molasses, each session is a
-                journey into flavor and relaxation.
-              </span>
-              Relax, savor, and let us bring the art of hookah to your
-              celebration!
+
+            <p
+              data-aos="fade-up"
+              data-aos-delay="300"
+              className="text-sm sm:text-base md:text-lg text-gray-200"
+            >
+              Immerse your guests in a rich sensory journey with our{" "}
+              <strong>premium hookah catering</strong>. Featuring{" "}
+              <span className="text-pink-300 font-semibold">fresh fruit chillums</span>{" "}
+              and an exotic selection of molasses, we create relaxing, flavorful moments
+              tailored for every celebration.
             </p>
+
             <button
               data-aos="fade-up"
               data-aos-delay="500"
-              className="border border-white px-4 py-2 rounded-lg hover:bg-white hover:text-black hover:font-bold"
               onClick={scrollToProducts}
+              className="px-6 py-3 rounded-lg bg-white text-black font-semibold transition-all duration-300 hover:bg-gradient-to-r hover:from-pink-500 hover:to-yellow-300 hover:text-white hover:shadow-xl"
             >
               Order Now
             </button>
           </div>
-          {/* image section */}
+
+          {/* Image content */}
           <div
-            className="text-center md:mt-[25vh] relative"
             data-aos="zoom-in"
+            className="relative flex justify-center items-center mt-10 md:mt-0"
           >
+            <div className="absolute w-[280px] md:w-[420px] h-[280px] md:h-[420px] bg-gradient-to-br from-pink-500/30 to-purple-500/30 blur-3xl rounded-full -z-10" />
             <img
-              className="img-shadow relative z-10 w-[250px] md:w-[400px]"
               src={HeroImg}
-              alt=""
+              alt="Luxurious Hookah"
+              className="w-[250px] md:w-[400px] drop-shadow-2xl z-10"
             />
-            <h1 className="text-[60px] md:text-[80px] xl:text-[120px] text-white uppercase absolute bottom-0 z-0 font-bold mt-4 text-shadow">
-              hookah
+            <h1 className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-2 text-[60px] md:text-[80px] xl:text-[120px] text-white uppercase font-bold opacity-10 tracking-widest pointer-events-none">
+              Hookah
             </h1>
           </div>
         </div>

@@ -12,9 +12,6 @@ import Cart from "./component/Cart.jsx";
 import CheckoutForm from "./component/CheckoutForm.jsx";
 import PageNotFound from "./component/PageNotFound.jsx";
 
-// This will get the environment variable in React
-export const backend_url = "https://fcube-server.onrender.com";
-
 const App = () => {
   // Create refs for Hero and Products sections
   const heroRef = useRef(null);
@@ -34,14 +31,9 @@ const App = () => {
 
   useEffect(() => {
     AOS.init({
-      offset: 100,
-      duration: 800,
-      easing: "ease-in-sine",
-      delay: 100,
-      once: true, // Set to true to animate only on first scroll
+      duration: 1200,
+      once: true,
     });
-    AOS.refresh();
-
   }, []);
 
   return (

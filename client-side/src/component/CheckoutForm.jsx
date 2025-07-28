@@ -4,8 +4,9 @@ import { FaChevronLeft } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import axios from "axios";
-import { backend_url } from "../App";
 import { useCart } from "../context/Context.jsx";
+
+const backend_url = import.meta.env.VITE_BACKEND_URL;
 
 function CheckoutForm() {
   const [selectedCity, setSelectedCity] = useState("Kanpur");

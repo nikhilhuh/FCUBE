@@ -1,5 +1,4 @@
-import React from "react";
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { IoIosClose } from "react-icons/io";
 import { FaShoppingCart } from "react-icons/fa";
@@ -8,143 +7,111 @@ import { useCart } from "../context/Context.jsx";
 
 const Navbar = ({ sidebar, setSidebar, scrollToHero, scrollToProducts }) => {
   const { state } = useCart();
-  useEffect(() => {
-    // Lock body scroll when the sidebar is open
-    if (sidebar) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "auto";
-    }
 
-    return () => {
-      // Clean up to restore normal scrolling behavior on unmount or when sidebar closes
-      document.body.style.overflow = "auto";
-    };
+  useEffect(() => {
+    document.body.style.overflow = sidebar ? "hidden" : "auto";
+    return () => (document.body.style.overflow = "auto");
   }, [sidebar]);
 
   return (
     <div className="relative w-full">
-      <div className="fixed w-full py-2 text-white z-20 bg-gradient-to-r from-primary to-secondary">
-        <div data-aos="fade-down" className="container">
-          <div className="flex justify-between items-center pr-4">
-            <Link to="/">
-              <h1 className="text-4xl font-bold uppercase">
-                F
-                <span className="font-normal-400 text-3xl text-yellow-500 text-shadow">
-                  CUBE
-                </span>
-              </h1>
-            </Link>
-            <ul className="space-x-14 text-xl hidden lg:flex">
-              <Link to="/home">
-                <li
-                  className="hover:text-yellow-400 hover:font-bold hover:cursor-pointer"
-                  onClick={scrollToHero}
-                >
-                  Home
-                </li>
-              </Link>
-              <Link to="/home">
-                <li
-                  className="hover:text-yellow-400 hover:font-bold hover:cursor-pointer"
-                  onClick={scrollToProducts}
-                >
-                  Products
-                </li>
-              </Link>
-              <Link to="/contactus">
-                <li className="hover:text-yellow-400 hover:font-bold hover:cursor-pointer">
-                  Contact Us
-                </li>
-              </Link>
-              <Link to="/cart">
-                <li className="hover:text-yellow-400 hover:font-bold hover:cursor-pointer relative">
-                  <FaShoppingCart className="text-2xl" />
-                  <div className="absolute top-[-8px] right-[-8px] bg-yellow-500 text-black text-xs rounded-full w-5 h-5 flex items-center justify-center">
-                    {state.items.length}
-                  </div>
-                </li>
-              </Link>
-            </ul>
+      <nav className="fixed w-full z-30 py-3 px-4 bg-gradient-to-r from-[#1e1b28] via-[#332544] to-[#3f1f38] shadow-lg text-white h-[8dvh]">
+        <div className="container mx-auto flex justify-between items-center">
+          {/* Logo */}
+          <Link to="/">
+            <h1 className="text-3xl font-extrabold uppercase tracking-wide">
+              F<span className="text-yellow-400 font-semibold">CUBE</span>
+            </h1>
+          </Link>
 
-            <div className="flex items-center lg:hidden">
-              <Link to="/cart" className="lg:hidden">
-                <div
-                  className="hover:text-yellow-400 hover:font-bold hover:cursor-pointer mr-5"
-                  onClick={() => {
-                    setSidebar(false);
-                  }}
-                >
-                  <div className="relative">
-                    <FaShoppingCart className="text-2xl" />
-                    <div className="absolute top-[-8px] right-[-8px] bg-yellow-500 text-black text-xs rounded-full w-5 h-5 flex items-center justify-center">
-                      {state.items.length}
-                    </div>
-                  </div>
-                </div>
+          {/* Desktop Navigation */}
+          <ul className="hidden lg:flex items-center space-x-12 text-lg font-medium">
+            <li
+              className="hover:text-yellow-400 transition cursor-pointer"
+              onClick={scrollToHero}
+            >
+              <Link to="/home">Home</Link>
+            </li>
+            <li
+              className="hover:text-yellow-400 transition cursor-pointer"
+              onClick={scrollToProducts}
+            >
+              <Link to="/home">Products</Link>
+            </li>
+            <li className="hover:text-yellow-400 transition cursor-pointer">
+              <Link to="/contactus">Contact Us</Link>
+            </li>
+            <li className="relative hover:text-yellow-400 transition cursor-pointer">
+              <Link to="/cart">
+                <FaShoppingCart className="text-xl" />
+                {state.items.length > 0 && (
+                  <span className="absolute -top-2 -right-2 bg-yellow-400 text-black text-xs w-5 h-5 rounded-full flex items-center justify-center">
+                    {state.items.length}
+                  </span>
+                )}
               </Link>
-              <div className="lg:hidden" onClick={() => setSidebar(!sidebar)}>
-                {sidebar ? (
-                  <IoIosClose className="text-3xl cursor-pointer" />
-                ) : (
-                  <GiHamburgerMenu className="text-3xl cursor-pointer" />
+            </li>
+          </ul>
+
+          {/* Mobile Menu Icon */}
+          <div className="flex items-center lg:hidden space-x-4">
+            <Link to="/cart">
+              <div className="relative">
+                <FaShoppingCart className="text-2xl" />
+                {state.items.length > 0 && (
+                  <span className="absolute -top-2 -right-2 bg-yellow-400 text-black text-xs w-5 h-5 rounded-full flex items-center justify-center">
+                    {state.items.length}
+                  </span>
                 )}
               </div>
+            </Link>
+            <div
+              onClick={() => setSidebar(!sidebar)}
+              className="cursor-pointer"
+            >
+              {sidebar ? (
+                <IoIosClose className="text-3xl" />
+              ) : (
+                <GiHamburgerMenu className="text-2xl" />
+              )}
             </div>
-
-            {/* Sidebar Menu for Mobile */}
-            {sidebar && (
-              <div
-                style={{ height: "calc(100vh - 41px)" }}
-                className={`absolute overflow-hidden top-[110%] w-[100%] py-6 text-lg font-bold pl-5 bg-primaryDark origin-right right-0 flex flex-col justify-between transform ${
-                  sidebar ? "animate-slideIn" : "animate-slideOut"
-                }`}
-              >
-                <div>
-                  <ul className="flex flex-col justify-center space-y-4">
-                    <Link to="/home">
-                      <li
-                        onClick={() => {
-                          scrollToHero();
-                          setSidebar(false);
-                        }}
-                        className="cursor-pointer"
-                      >
-                        Home
-                      </li>
-                    </Link>
-                    <Link to="/home">
-                      <li
-                        onClick={() => {
-                          scrollToProducts();
-                          setSidebar(false);
-                        }}
-                        className="cursor-pointer"
-                      >
-                        Products
-                      </li>
-                    </Link>
-                    <Link to="/contactus">
-                      <li
-                        className="cursor-pointer"
-                        onClick={() => {
-                          setSidebar(false);
-                        }}
-                      >
-                        Contact Us
-                      </li>
-                    </Link>
-                  </ul>
-                </div>
-                {/* logo section in sidebar */}
-                {/* <div className="flex justify-center">
-                  <img src="" alt="Logo" />
-                </div> */}
-              </div>
-            )}
           </div>
         </div>
-      </div>
+
+        {/* Mobile Sidebar */}
+        {sidebar && (
+          <div
+            className="absolute top-full left-0 w-full bg-[#2a1d2f] text-white text-lg font-semibold px-6 py-8 space-y-6 transition-all duration-300 shadow-md animate-slideIn h-[92dvh] max-h-[92dvh] overflow-y-auto"
+          >
+            <ul className="flex flex-col gap-4">
+              <li
+                className="hover:text-yellow-400 cursor-pointer"
+                onClick={() => {
+                  scrollToHero();
+                  setSidebar(false);
+                }}
+              >
+                <Link to="/home">Home</Link>
+              </li>
+              <li
+                className="hover:text-yellow-400 cursor-pointer"
+                onClick={() => {
+                  scrollToProducts();
+                  setSidebar(false);
+                }}
+              >
+                <Link to="/home">Products</Link>
+              </li>
+              <li
+                className="hover:text-yellow-400 cursor-pointer"
+                onClick={() => setSidebar(false)}
+              >
+                <Link to="/contactus">Contact Us</Link>
+              </li>
+            </ul>
+          </div>
+        )}
+      </nav>
     </div>
   );
 };

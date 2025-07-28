@@ -4,7 +4,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import Swal from "sweetalert2";
 import { useCart } from "../context/Context.jsx";
-import { backend_url } from "../App.jsx";
+
+const backend_url = import.meta.env.VITE_BACKEND_URL;
 
 function Cart() {
   let navigate = useNavigate();
@@ -81,8 +82,8 @@ function Cart() {
   };
 
   return (
-    <section className="bg-white py-8 antialiased dark:bg-gray-900 md:py-16">
-      <div className="mx-auto max-w-screen-xl px-4 2xl:px-0 mt-[2.5rem] min-h-screen">
+    <section className="bg-primary py-8 antialiased md:py-16">
+      <div className="mx-auto max-w-7xl px-4 2xl:px-0 mt-[2.5rem] min-h-[70svh]">
         <div className="cursor-pointer w-max"  onClick={() => navigate(-1)}>
           <FaChevronLeft className="text-white text-3xl mb-6" />
         </div>
