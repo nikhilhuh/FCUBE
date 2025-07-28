@@ -92,7 +92,7 @@ function CheckoutForm() {
   };
 
   return (
-    <section className="bg-white py-8 antialiased dark:bg-gray-900 md:py-16">
+    <section className="bg-primary py-8 antialiased md:py-16">
       <form
         onSubmit={(e) => { e.preventDefault(); handleSubmit(); }}
         className="mx-auto max-w-screen-xl px-4 2xl:px-0"
