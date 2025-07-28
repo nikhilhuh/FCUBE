@@ -88,7 +88,7 @@ function Cart() {
           <FaChevronLeft className="text-white text-3xl mb-6" />
         </div>
         {state.items && state.items.length > 0 && (
-          <h2 className="text-xl font-semibold text-gray-900 dark:text-white sm:text-2xl">
+          <h2 className="text-xl font-semibold text-white sm:text-2xl">
             Your Cart
           </h2>
         )}
@@ -100,12 +100,12 @@ function Cart() {
                 state.items.map((item) => (
                   <div
                     key={`${item.product_name}-${item.selectedFlavours}-${item.selectedFruit}`}
-                    className="rounded-lg border border-gray-200 bg-white p-4 shadow-sm dark:border-gray-700 dark:bg-gray-800 md:p-6"
+                    className="rounded-lg border p-4 shadow-sm border-gray-700 bg-gray-800 md:p-6"
                   >
                     <div className="space-y-4 md:flex md:items-center md:justify-between md:gap-6 md:space-y-0">
                       <a href="#" className="shrink-0 md:order-1">
                         <img
-                          className="hidden h-20 w-20 dark:block object-fit"
+                          className="h-20 w-20 object-contain"
                           src={`${backend_url}${item.product_image}`}
                           alt=""
                         />
@@ -120,10 +120,10 @@ function Cart() {
                             type="button"
                             id={`decrement-button-${item.product_name}`}
                             data-input-counter-decrement={`counter-input-${item.product_name}`}
-                            className="inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-md border border-gray-300 bg-gray-100 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-100 dark:border-gray-600 dark:bg-gray-700 dark:hover:bg-gray-600 dark:focus:ring-gray-700"
+                            className="inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-md border   focus:outline-none focus:ring-2 border-gray-600 bg-gray-700 hover:bg-gray-600 focus:ring-gray-700"
                           >
                             <svg
-                              className="h-2.5 w-2.5 text-gray-900 dark:text-white"
+                              className="h-2.5 w-2.5 text-white"
                               aria-hidden="true"
                               xmlns="http://www.w3.org/2000/svg"
                               fill="none"
@@ -142,7 +142,7 @@ function Cart() {
                             type="text"
                             id={`counter-input-${item.product_name}`}
                             data-input-counter
-                            className="w-10 shrink-0 border-0 bg-transparent text-center text-sm font-medium text-gray-900 focus:outline-none focus:ring-0 dark:text-white"
+                            className="w-10 shrink-0 border-0 bg-transparent text-center text-sm font-medium  focus:outline-none focus:ring-0 text-white"
                             placeholder=""
                             value={item.quantity}
                             readOnly
@@ -154,10 +154,10 @@ function Cart() {
                             type="button"
                             id={`increment-button-${item.product_name}`}
                             data-input-counter-increment={`counter-input-${item.product_name}`}
-                            className="inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-md border border-gray-300 bg-gray-100 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-100 dark:border-gray-600 dark:bg-gray-700 dark:hover:bg-gray-600 dark:focus:ring-gray-700"
+                            className="inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-md border  focus:outline-none focus:ring-2 border-gray-600 bg-gray-700 hover:bg-gray-600 focus:ring-gray-700"
                           >
                             <svg
-                              className="h-2.5 w-2.5 text-gray-900 dark:text-white"
+                              className="h-2.5 w-2.5 text-white"
                               aria-hidden="true"
                               xmlns="http://www.w3.org/2000/svg"
                               fill="none"
@@ -278,24 +278,24 @@ function Cart() {
           </div>
           {state.items && state.items.length > 0 && (
             <div className="mx-auto mt-6 max-w-4xl flex-1 space-y-6 lg:mt-0 lg:w-full h-full justify-evenly">
-              <div className="space-y-4 rounded-lg border border-gray-200 bg-white p-4 shadow-sm dark:border-gray-700 dark:bg-gray-800 sm:p-6">
-                <p className="text-xl font-semibold text-gray-900 dark:text-white">
+              <div className="space-y-4 rounded-lg border  p-4 shadow-sm border-gray-700 bg-gray-800 sm:p-6">
+                <p className="text-xl font-semibold text-white">
                   Order summary
                 </p>
 
                 <div className="space-y-4">
                   <div className="space-y-2">
                     <dl className="flex items-center justify-between gap-4">
-                      <dt className="text-base font-normal text-gray-500 dark:text-gray-400">
+                      <dt className="text-base font-normal text-gray-400">
                         Original price
                       </dt>
-                      <dd className="text-base font-medium text-gray-900 dark:text-white">
+                      <dd className="text-base font-medium text-white">
                         Rs. {state.totalPrice.toFixed(2)}
                       </dd>
                     </dl>
 
                     <dl className="flex items-center justify-between gap-4">
-                      <dt className="text-base font-normal text-gray-500 dark:text-gray-400">
+                      <dt className="text-base font-normal text-gray-400">
                         Savings
                       </dt>
                       <dd className="text-base font-medium text-green-600">
@@ -304,11 +304,11 @@ function Cart() {
                     </dl>
                   </div>
 
-                  <dl className="flex items-center justify-between gap-4 border-t border-gray-200 pt-2 dark:border-gray-700">
-                    <dt className="text-base font-bold text-gray-900 dark:text-white">
+                  <dl className="flex items-center justify-between gap-4 border-t pt-2 border-gray-700">
+                    <dt className="text-base font-bold text-white">
                       Total
                     </dt>
-                    <dd className="text-base font-bold text-gray-900 dark:text-white">
+                    <dd className="text-base font-bold text-white">
                       Rs. {state.finalPrice}
                     </dd>
                   </dl>
@@ -324,7 +324,7 @@ function Cart() {
                 </Link>
 
                 <div className="flex items-center justify-center gap-2">
-                  <span className="text-sm font-normal text-gray-500 dark:text-gray-400">
+                  <span className="text-sm font-normal text-gray-400">
                     {" "}
                     or{" "}
                   </span>

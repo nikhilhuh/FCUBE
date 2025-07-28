@@ -133,7 +133,7 @@ function ProductPage() {
         <div className="md:w-1/2 w-full">
           <div className="h-[250px] md:h-[460px] rounded-xl overflow-hidden shadow-lg bg-gray-700">
             <img
-              className="w-full h-full object-cover"
+              className="w-full h-full object-contain"
               src={`${backend_url}${product.product_image}`}
               alt={product.product_name}
             />

@@ -106,7 +106,7 @@ function CheckoutForm() {
         <div className="mt-6 sm:mt-8 lg:flex lg:items-start lg:gap-12 xl:gap-16">
           <div className="min-w-0 flex-1 space-y-8">
             <div className="space-y-4">
-              <h2 className="text-xl font-semibold text-gray-900 dark:text-white">
+              <h2 className="text-xl font-semibold text-white">
                 Delivery Details
               </h2>
 
@@ -114,7 +114,7 @@ function CheckoutForm() {
                 <div>
                   <label
                     htmlFor="your_name"
-                    className="mb-2 block text-sm max-w-max font-medium text-gray-900 dark:text-white"
+                    className="mb-2 block text-sm max-w-max font-medium text-white"
                   >
                     {" "}
                     Your name{" "}
@@ -122,7 +122,7 @@ function CheckoutForm() {
                   <input
                     type="text"
                     id="your_name"
-                    className="outline-none block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-primary-500 dark:focus:ring-primary-500"
+                    className="outline-none block w-full rounded-lg border  p-2.5 text-sm  border-gray-600 bg-gray-700 text-white placeholder:text-gray-400 focus:border-primary-500 focus:ring-primary-500"
                     placeholder="for eg: Rishabh Malik"
                     required
                   />
@@ -131,7 +131,7 @@ function CheckoutForm() {
                 <div>
                   <label
                     htmlFor="your_email"
-                    className="mb-2 block text-sm max-w-max font-medium text-gray-900 dark:text-white"
+                    className="mb-2 block text-sm max-w-max font-medium text-white"
                   >
                     {" "}
                     Your email <span className="text-gray-400">(Optional)</span>
@@ -139,7 +139,7 @@ function CheckoutForm() {
                   <input
                     type="email"
                     id="your_email"
-                    className="outline-none block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-primary-500 dark:focus:ring-primary-500"
+                    className="outline-none block w-full rounded-lg border p-2.5 text-sm  border-gray-600 bg-gray-700 text-white placeholder:text-gray-400 focus:border-primary-500 focus:ring-primary-500"
                     placeholder="email@example.com"
                   />
                 </div>
@@ -147,7 +147,7 @@ function CheckoutForm() {
                 <div>
                   <label
                     htmlFor="order_address"
-                    className="mb-2 block text-sm max-w-max font-medium text-gray-900 dark:text-white"
+                    className="mb-2 block text-sm max-w-max font-medium text-white"
                   >
                     {" "}
                     Address{" "}
@@ -155,7 +155,7 @@ function CheckoutForm() {
                   <input
                     type="text"
                     id="order_address"
-                    className="outline-none block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-primary-500 dark:focus:ring-primary-500"
+                    className="outline-none block w-full rounded-lg border p-2.5 text-sm border-gray-600 bg-gray-700 text-white placeholder:text-gray-400 focus:border-primary-500 focus:ring-primary-500"
                     placeholder="house no , street name , area name"
                   />
                 </div>
@@ -164,7 +164,7 @@ function CheckoutForm() {
                   <div className="mb-2 flex items-center gap-2">
                     <label
                       htmlFor="select-city-input-3"
-                      className="block text-sm max-w-max font-medium text-gray-900 dark:text-white"
+                      className="block text-sm max-w-max font-medium text-white"
                     >
                       {" "}
                       City{" "}
@@ -174,7 +174,7 @@ function CheckoutForm() {
                     value={selectedCity}
                     onChange={(e) => setSelectedValue(e.target.value)}
                     id="select-city-input-3"
-                    className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-primary-500 dark:focus:ring-primary-500 outline-none"
+                    className="block w-full rounded-lg border border-gray-300 p-2.5 text-sm bg-gray-700 text-white placeholder:text-gray-400 focus:border-primary-500 focus:ring-primary-500 outline-none"
                   >
                     <option value="Kanpur">Kanpur</option>
                   </select>
@@ -183,7 +183,7 @@ function CheckoutForm() {
                 <div>
                   <label
                     htmlFor="phone-input"
-                    className="mb-2 block max-w-max text-sm font-medium text-gray-900 dark:text-white"
+                    className="mb-2 block max-w-max text-sm font-medium text-white"
                   >
                     {" "}
                     Phone Number{" "}
@@ -281,7 +281,7 @@ function CheckoutForm() {
                 <div>
                   <label
                     htmlFor="pin_code"
-                    className="mb-2 block text-sm font-medium max-w-max text-gray-900 dark:text-white"
+                    className="mb-2 block text-sm font-medium max-w-max text-white"
                   >
                     {" "}
                     PIN Code{" "}
@@ -289,7 +289,7 @@ function CheckoutForm() {
                   <input
                     type="text"
                     id="pin_code"
-                    className="outline-none block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-primary-500 dark:focus:ring-primary-500"
+                    className="outline-none block w-full rounded-lg border  p-2.5 text-sm border-gray-600 bg-gray-700 text-white placeholder:text-gray-400 focus:border-primary-500 focus:ring-primary-500"
                     placeholder="your pin code.."
                     required
                   />
@@ -298,12 +298,12 @@ function CheckoutForm() {
             </div>
 
             <div className="space-y-4">
-              <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
+              <h3 className="text-xl font-semibold text-white">
                 Payment
               </h3>
 
               <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
-                <div className="rounded-lg border border-gray-200 bg-gray-50 p-4 ps-4 dark:border-gray-700 dark:bg-gray-800">
+                <div className="rounded-lg border p-4 ps-4 border-gray-700 bg-gray-800">
                   <div className="flex items-start">
                     <div className="flex h-5 items-center">
                       <input
@@ -313,21 +313,21 @@ function CheckoutForm() {
                         type="radio"
                         name="payment-method"
                         value=""
-                        className="h-4 w-4 border-gray-300 bg-white text-primary-600 focus:ring-2 focus:ring-primary-600 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-primary-600"
+                        className="h-4 w-4 text-primary-600 focus:ring-2  border-gray-600 bg-gray-700 ring-offset-gray-800 focus:ring-primary-600"
                       />
                     </div>
 
                     <div className="ms-4 text-sm">
                       <label
                         htmlFor="pay-on-delivery"
-                        className="font-medium leading-none max-w-max text-gray-900 dark:text-white"
+                        className="font-medium leading-none max-w-max text-white"
                       >
                         {" "}
                         Payment on delivery{" "}
                       </label>
                       <p
                         id="pay-on-delivery-text"
-                        className="mt-1 text-xs font-normal text-gray-500 dark:text-gray-400"
+                        className="mt-1 text-xs font-normal text-gray-400"
                       >
                         Your delivery charge is on us (Free)
                       </p>
