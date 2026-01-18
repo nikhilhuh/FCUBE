@@ -12,8 +12,8 @@ const FRONTEND_URL = process.env.FRONTEND_URL;
 const corsOptions = {
   origin: FRONTEND_URL,
 };
+
 app.use(cors(corsOptions));
-// Middleware for parsing JSON request bodies
 app.use(express.json());
 
 // Product Information
@@ -68,13 +68,19 @@ app.get("/api/products", (req, res) => {
   res.json(products);
 });
 
+// health check endpoint
+app.get("/ping", (_req, res) => {
+  res.status(200).json({ status: "server-alive" });
+  return;
+});
+
 // sending sms when ordered
 const accountSID = process.env.TWILIO_ACCOUNT_SID;
 const authToken = process.env.TWILIO_AUTH_TOKEN;
 const fromPhoneNumber = process.env.TWILIO_PHONE_NUMBER;
 // Split the comma-separated phone numbers into an array
 const toPhoneNumber = process.env.PHONE_NUMBER.split(",").map((number) =>
-  number.trim()
+  number.trim(),
 );
 const client = require("twilio")(accountSID, authToken);
 let orderNumber = 0;
@@ -99,7 +105,6 @@ function resetOrderNumberDaily() {
   }, millisUntilMidnight);
 }
 
-
 function sendSMS(message) {
   // Return the promise to ensure we can wait for completion
   return Promise.all(
@@ -110,7 +115,7 @@ function sendSMS(message) {
         from: fromPhoneNumber,
         to: number,
       });
-    })
+    }),
   );
 }
 
@@ -129,8 +134,8 @@ app.post("/api/order", (req, res) => {
 
   // Get current date and time
   const now = new Date();
-  const formattedDate = now.toLocaleDateString('en-IN');
-  const formattedTime = now.toLocaleTimeString('en-IN', { hour12: true });
+  const formattedDate = now.toLocaleDateString("en-IN");
+  const formattedTime = now.toLocaleTimeString("en-IN", { hour12: true });
 
   let message = `New order received at
   \n${formattedTime} ${formattedDate}
@@ -174,10 +179,10 @@ app.post("/api/order", (req, res) => {
 app.post("/api/contact", (req, res) => {
   const { name, subject, phoneNumber, contact_message } = req.body;
 
-   // Get current date and time
-   const now = new Date();
-   const formattedDate = now.toLocaleDateString('en-IN');
-   const formattedTime = now.toLocaleTimeString('en-IN', { hour12: true });
+  // Get current date and time
+  const now = new Date();
+  const formattedDate = now.toLocaleDateString("en-IN");
+  const formattedTime = now.toLocaleTimeString("en-IN", { hour12: true });
 
   let message = `Contact Request at
   \n${formattedTime} ${formattedDate} 
